@@ -19,17 +19,22 @@ interface MeasureHistoryProps {
   color: string;
 }
 
-const CustomTooltip = ({ active, payload }: any) => {
+const CustomTooltip = ({
+  active,
+  payload,
+}: {
+  active: boolean;
+  payload: { value: number; createdAt: string }[];
+}) => {
   if (active && payload && payload.length) {
-    const data = payload[0].payload;
     const formattedDate = new Intl.DateTimeFormat("es-ES", {
       dateStyle: "medium",
       timeStyle: "short",
-    }).format(new Date(data.createdAt));
+    }).format(new Date(payload[0].createdAt));
 
     return (
       <div className="bg-gray-800 text-white p-2 rounded-lg shadow-lg border border-gray-700">
-        <p className="font-bold text-center">{`${data.value}`}</p>
+        <p className="font-bold text-center">{payload[0].value}</p>
         <p className="text-sm text-gray-400">{formattedDate}</p>
       </div>
     );
@@ -66,7 +71,7 @@ const MeasureHistory: React.FC<MeasureHistoryProps> = ({
               vertical={true}
               horizontal={false}
             />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip content={<CustomTooltip active={true} payload={[]} />} />
             <Area
               type="monotone"
               dataKey="value"

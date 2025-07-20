@@ -1,12 +1,16 @@
-import Image from "next/image";
 import { TempPie } from "@/app/components/Pie/Temp";
 import { LightPie } from "@/app/components/Pie/Light";
 import { WaterPie } from "@/app/components/Pie/Water";
 import MeasureHistory from "@/app/components/MeasureHistory";
-import { mockMeasures } from "@/app/utils/mock-data";
+import { mockMeasures } from "@/app/components/Pie/utils/mock-data";
 
-export default async function Plant({ params }: { params: { id: string } }) {
-  console.log(params);
+export default async function Plant({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  console.log(id);
 
   return (
     <div className="flex flex-col gap-2 items-center justify-center text-center">
